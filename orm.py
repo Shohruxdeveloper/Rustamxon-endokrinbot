@@ -145,39 +145,12 @@ class UserORM:
         self.close()
 
 
-# # Example usage
-# if __name__ == "__main__":
-#     orm = TelegramORM()
-
-#     # Create a new user
-#     user = User(user_id=123456, full_name="John Doe", phone_number="1234567890", user_name="johndoe")
-#     user_id = orm.create_user(user)
-#     print(f"Created user with ID: {user_id}")
-
-#     # Update user
-#     orm.update_user(user_id, full_name="Johnathan Doe", ref_count=5)
-#     print("User updated.")
-
-#     # Increment ref_count
-#     orm.add_increment(user_id, increment_by=2)
-#     print("Incremented ref_count.")
-
-#     # Get single user
-#     user = orm.get_user(user_id)
-#     print("Fetched user:", user)
-
-#     # Count users
-#     count = orm.count_users()
-#     print(f"Total users: {count}")
-
-#     # Get all users
-#     users = orm.get_all_users()
-#     print("All users:", users)
-
-#     # Delete user
-#     orm.delete_user(user_id)
-#     print("User deleted.")
-
-#     # Confirm deletion
-#     count = orm.count_users()
-#     print(f"Total users after deletion: {count}")
+# Example usage
+if __name__ == "__main__":
+    # userdb = UserORM()
+    
+    
+    # users = userdb.get_all_users()
+    
+    # for user in users:
+    #     userdb.delete_user(user_id=user["id"])
