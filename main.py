@@ -24,7 +24,7 @@ userdb = UserORM()
 referral_data = {}
 
 def generate_referral_link(user_id):
-    return f"https://t.me/test2parvoz_bot?start={user_id}"
+    return f"https://t.me/Rustamxon_endokrinbot?start={user_id}"
 
 def is_admin(user_id):
     return user_id in admin_ids
