@@ -53,7 +53,7 @@ def start(message):
                 
         
     user_data = userdb.get_user(message.from_user.id)
-    if user_data.get("name", "User") == "User" or user_data.get("phone_number") is None: 
+    if user_data.get("full_name", "User") == "User" or user_data.get("phone_number") is None: 
         bot.send_message(message.chat.id, "Iltimos, ismingiz va familiyangizni kiriting: ✍️")
         user_states[message.chat.id] = {'state': ASK_NAME}
        
