@@ -18,7 +18,7 @@ all_chat_ids = set()  # Set to store all chat IDs
 referral_discounts = {}  # Global variable to store referral discounts
 joineds = 0
 # Define admin user IDs
-admin_ids = [916468038, 5509573581]  # Replace with actual admin user IDs
+admin_ids = [5928778721, 916468038, 5509573581]  # Replace with actual admin user IDs
 userdb = UserORM()
 # Referral data structure
 referral_data = {}
