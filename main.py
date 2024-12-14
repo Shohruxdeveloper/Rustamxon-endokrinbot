@@ -43,8 +43,6 @@ def start(message):
             full_name="User"
         ))
         
-        bot.send_message(message.chat.id, "Iltimos, ismingiz va familiyangizni kiriting: ✍️")
-        user_states[message.chat.id] = {'state': ASK_NAME}
         if len(message.text) > 9:
             try:
                 inviter_id = message.text[7:]
@@ -52,9 +50,15 @@ def start(message):
             except Exception as err:
                 print(f'Error while adding ref_count. Might inviter_id is wrong')
                 
+                
         
+    user_data = userdb.get_user(message.from_user.id)
+    if user_data.get("name", "User") == "User" or user_data.get("phone_number") is None: 
+        bot.send_message(message.chat.id, "Iltimos, ismingiz va familiyangizni kiriting: ✍️")
+        user_states[message.chat.id] = {'state': ASK_NAME}
+       
     else:
-        show_user_panel(message)
+        show_admin_panel() 
         
     
 
