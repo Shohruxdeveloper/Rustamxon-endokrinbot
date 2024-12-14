@@ -58,7 +58,7 @@ def start(message):
         user_states[message.chat.id] = {'state': ASK_NAME}
        
     else:
-        show_admin_panel() 
+        show_user_panel(message)
         
     
 
