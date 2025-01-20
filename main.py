@@ -12,6 +12,7 @@ from telebot.types import Message
 ASK_NAME, ASK_CONTACT, REDIRECT_VIDEO, SEND_MESSAGE, SET_VIDEO_LINK, ADMIN_PANEL, SEND_BROADCAST, USER_PANEL, SET_REFERRAL_DISCOUNT, CONFIRM_BROADCAST = range(10)
 
 bot = TeleBot("7732224979:AAHotEmAr8WAN00gvqfDpBpusydVBpV7USc")
+# bot = TeleBot('6816181600:AAHN7m-YGPRI7QEavAHWPnIk53ezadjha6A')
 user_states = {}
 video_link = None  # Global variable to store the video link
 all_chat_ids = set()  # Set to store all chat IDs
@@ -19,6 +20,7 @@ referral_discounts = {}  # Global variable to store referral discounts
 joineds = 0
 # Define admin user IDs
 admin_ids = [5509573581, 916468038]  # Replace with actual admin user IDs
+# admin_ids = [6400738281]  # Replace with actual admin user IDs
 userdb = UserORM()
 # Referral data structure
 referral_data = {}
@@ -169,13 +171,19 @@ def handle_confirm_broadcast(message):
     if message.text == "Tasdiqlash ✅":
         broadcast_message = user_states[message.chat.id]['broadcast_message']
         users = userdb.get_all_users()
-        if isinstance(broadcast_message, str):
-            for user in users:
-                bot.send_message(user["id"], broadcast_message)
-                time.sleep(0.1)
-        else:
-            for user in users:
-                if broadcast_message['type'] == 'photo':
+        
+        bot.send_message(message.chat.id, "Xabar yuborish jarayoni boshlandi, bu bir qancha vaqt olishi mumkin! Jarayon tugashi bilan sizni ogohlantiramiz.")
+        show_admin_panel(message)
+        
+        success_count = 0
+        error_count = 0
+        
+        
+        for user in users:
+            try:
+                if isinstance(broadcast_message, str):
+                    bot.send_message(user["id"], broadcast_message)
+                elif broadcast_message['type'] == 'photo':
                     bot.send_photo(user["id"], broadcast_message['file_id'], caption=broadcast_message['caption'])
                 elif broadcast_message['type'] == 'video':
                     bot.send_video(user["id"], broadcast_message['file_id'], caption=broadcast_message['caption'])
@@ -183,7 +191,15 @@ def handle_confirm_broadcast(message):
                     bot.send_document(user["id"], broadcast_message['file_id'], caption=broadcast_message['caption'])
                 elif broadcast_message['type'] == 'voice':
                     bot.send_voice(user["id"], broadcast_message['file_id'], caption=broadcast_message['caption'])
-        bot.send_message(message.chat.id, "Xabar barcha foydalanuvchilarga yuborildi. ✅")
+                
+                success_count += 1
+                time.sleep(0.05)
+            
+            except:
+                error_count += 1
+                
+                
+        bot.send_message(message.chat.id, f"🎉 Xabar barcha foydalanuvchilarga yuborildi. \n✅Muvaffaqiyatli: {success_count} \n❌Bloklangan: {error_count} ")
     else:
         bot.send_message(message.chat.id, "Xabar yuborish bekor qilindi. ❌")
     
